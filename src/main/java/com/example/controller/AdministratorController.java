@@ -1,6 +1,5 @@
 package com.example.controller;
 
-import org.postgresql.util.PSQLException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -82,18 +81,7 @@ public class AdministratorController {
 		Administrator administrator = new Administrator();
 		// フォームからドメインにプロパティ値をコピー
 		BeanUtils.copyProperties(form, administrator);
-		administrator = administratorService.findByMail(null);
-		if (form.getMailAddress() == administrator.getMailAddress()) {
-			return toInsert();
-		}
-		try {
 			administratorService.insert(administrator);
-		} catch (Exception e) {
-			return toInsert();
-			// TODO: handle exception
-		}
-		
-
 		return "redirect:/";
 	}
 
