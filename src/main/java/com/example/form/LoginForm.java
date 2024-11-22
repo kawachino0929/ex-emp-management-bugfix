@@ -14,7 +14,7 @@ public class LoginForm {
 
 	/** メールアドレス */
 	@NotBlank(message = "メールアドレスを入力してください。")
-	@Email(message = "メールアドレスの形式で入力してください")
+	@Email(message = "メールアドレスの形式で入力してください。またはメールアドレスが重複しています")
 	@Size(min = 1, max = 254, message = "１文字以上２５４文字以内で入力してください")
 	private String mailAddress;
 
