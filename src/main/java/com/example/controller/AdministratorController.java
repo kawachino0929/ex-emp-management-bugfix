@@ -88,7 +88,7 @@ public class AdministratorController {
 	 * 
 	 * @return ログイン画面
 	 */
-	@GetMapping("/")
+	@PostMapping("/") //PostMappingに修正
 	public String toLogin() {
 		return "administrator/login";
 	}
