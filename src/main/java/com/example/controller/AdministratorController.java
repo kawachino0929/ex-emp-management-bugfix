@@ -82,7 +82,7 @@ public class AdministratorController {
 		// フォームからドメインにプロパティ値をコピー
 		BeanUtils.copyProperties(form, administrator);
 		administratorService.insert(administrator);
-		return "administrator/login";
+		return "redirect:/";
 	}
 
 	/////////////////////////////////////////////////////
@@ -106,9 +106,9 @@ public class AdministratorController {
 	 */
 	@PostMapping("/login")
 	public String login(@Validated LoginForm form, BindingResult result, RedirectAttributes redirectAttributes) {
-		if (result.hasErrors()) {
-			return toLogin();
-		}
+		// if (result.hasErrors()) {
+		// 	return toLogin();
+		// }
 		Administrator administrator = administratorService.login(form.getMailAddress(), form.getPassword());
 		if (administrator == null) {
 			redirectAttributes.addFlashAttribute("errorMessage", "メールアドレスまたはパスワードが不正です。");
