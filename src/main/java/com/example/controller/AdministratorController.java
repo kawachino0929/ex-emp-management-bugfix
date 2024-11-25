@@ -105,7 +105,7 @@ public class AdministratorController {
 	 * @return ログイン後の従業員一覧画面
 	 */
 	@PostMapping("/login")
-	public String login(@Validated(InsertAdministratorForm.class) LoginForm form, BindingResult result, RedirectAttributes redirectAttributes) {
+	public String login(@Validated(LoginForm.All.class) LoginForm form, BindingResult result, RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) {
 			return toLogin();
 		}
