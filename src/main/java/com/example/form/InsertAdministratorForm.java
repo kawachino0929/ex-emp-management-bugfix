@@ -1,6 +1,7 @@
 package com.example.form;
 
 import jakarta.validation.GroupSequence;
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -41,6 +42,15 @@ public class InsertAdministratorForm {
 
 	/** 確認用パスワード */
 	private String confirmPassword;
+
+	@AssertTrue(message = "パスワードと同一にしてください", groups = Group1.class)
+	public boolean isPasswordValid() {
+		if (password == null || password.isEmpty()) {
+			return true;
+		}
+		
+		return password.equals(confirmPassword);
+	} 
 	
 	public String getConfirmPassword() {
 		return confirmPassword;

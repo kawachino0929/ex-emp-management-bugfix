@@ -38,7 +38,7 @@ public class LoginForm {
 	@NotBlank(message = "パスワードを入力してください", groups = Group1.class)
 	@Size(min = 8, max = 50, message = "８文字以上５０文字以内で入力してください", groups = Group2.class)
 	private String password;
-
+	
 	public String getMailAddress() {
 		return mailAddress;
 	}
