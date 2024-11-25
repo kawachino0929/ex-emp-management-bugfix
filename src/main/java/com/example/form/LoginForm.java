@@ -26,14 +26,14 @@ public class LoginForm {
 	public interface All {}
 
 	/** メールアドレス */
-	@NotBlank(message = "メールアドレスを入力してください。", groups = Group1.class)
-	@Email(message = "メールアドレスの形式で入力してください。またはメールアドレスが重複しています", groups = Group1.class)
-	@Size(min = 1, max = 254, message = "１文字以上２５４文字以内で入力してください", groups = Group2.class)
+	@NotBlank(message = "メールアドレスを入力してください")
+	@Email(message = "メールアドレスの形式で入力してください。またはメールアドレスが重複しています")
+	@Size(min = 1, max = 254, message = "１文字以上２５４文字以内で入力してください")
 	private String mailAddress;
 
 	/** パスワード */
-	@NotBlank(message = "パスワードを入力してください", groups = Group1.class)
-	@Size(min = 8, max = 50, message = "８文字以上５０文字以内で入力してください", groups = Group2.class)
+	@NotBlank(message = "パスワードを入力してください")
+	@Size(min = 8, max = 50, message = "８文字以上５０文字以内で入力してください")
 	private String password;
 
 	public String getMailAddress() {
