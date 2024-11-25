@@ -38,6 +38,18 @@ public class InsertAdministratorForm {
 	/** パスワード */
 	@NotBlank(message = "パスワードを入力してください", groups = Group1.class)
 	@Size(min = 8, max = 50, message = "８文字以上５０文字以内で入力してください", groups = Group2.class)
+
+	/** 確認用パスワード */
+	private String confirmPassword;
+	
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
 	private String password;
 
 	public String getName() {
