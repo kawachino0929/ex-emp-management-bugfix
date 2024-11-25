@@ -43,14 +43,14 @@ public class InsertAdministratorForm {
 	/** 確認用パスワード */
 	private String confirmPassword;
 
-	@AssertTrue(message = "パスワードと同一にしてください", groups = Group1.class)
-	public boolean isPasswordValid() {
-		if (password == null || password.isEmpty()) {
-			return true;
-		}
-		
-		return password.equals(confirmPassword);
-	} 
+	// @AssertTrue(message = "パスワードと同一にしてください", groups = Group1.class)
+	// public boolean isPasswordValid() {
+	// 	if (!password.equals(confirmPassword)) {
+	// 		return false;
+	// 	} else {
+	// 		return true;
+	// 	}
+	// } 
 	
 	public String getConfirmPassword() {
 		return confirmPassword;

@@ -91,6 +91,12 @@ public class AdministratorController {
 			return toInsert();
 		}
 
+		if (!form.getPassword().equals(form.getConfirmPassword())) {
+			FieldError fieldError = new FieldError(result.getObjectName(), "confirmPassword", form.getConfirmPassword(), false, null, null, "パスワードと確認用パスワードが一致しません");
+			result.addError(fieldError);
+			return toInsert();
+		}
+
 		return "redirect:/";
 	}
 
