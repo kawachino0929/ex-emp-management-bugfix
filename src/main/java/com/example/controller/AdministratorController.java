@@ -90,7 +90,6 @@ public class AdministratorController {
 			result.addError(fieldError);
 			return toInsert();
 		}
-
 		return "redirect:/";
 	}
 
