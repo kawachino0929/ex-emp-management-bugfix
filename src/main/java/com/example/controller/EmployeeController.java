@@ -19,7 +19,6 @@ import com.example.form.NameForm;
 import com.example.form.UpdateEmployeeForm;
 import com.example.service.EmployeeService;
 
-
 /**
  * 従業員情報を操作するコントローラー.
  * 
@@ -67,6 +66,25 @@ public class EmployeeController {
 		List<Employee> employeeList = employeeService.showList();
 		model.addAttribute("employeeList", employeeList);
 		return "employee/list";
+	}
+
+	@RequestMapping("/showNameList")
+	public String showNameList(NameForm form, Model model) {
+		if (form.getName() == null || form.getName().isEmpty()) {
+			model.addAttribute("text", "１件もありませんでした");
+			return showList(model);
+		} else {
+			List<Employee> employeeList = employeeService.findByName(form.getName());
+			if (employeeList == null) {
+				model.addAttribute("text", "１件もありませんでした");
+				model.addAttribute("formName", form.getName());
+				return showList(model);
+			}
+			model.addAttribute("employeeList", employeeList);
+			model.addAttribute("formName", form.getName());
+			return "employee/list";
+		}
+
 	}
 
 	/////////////////////////////////////////////////////

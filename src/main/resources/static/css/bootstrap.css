@@ -6034,6 +6034,9 @@ button.close {
   .carousel-indicators {
     bottom: 20px;
   }
+  .find{
+    background-color: #f5f5f5;
+  }
 }
 .clearfix:before,
 .clearfix:after,
