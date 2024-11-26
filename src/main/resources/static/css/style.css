@@ -9,3 +9,7 @@
 .error-messages {
   color: #ff0000;
 }
+.background {
+  background-image: url(../img/bg_natural_mori.jpg);
+  height: 1280px;
+}
