@@ -26,6 +26,7 @@ public class InsertAdministratorForm {
 	/** パスワード */
 	@NotBlank(message = "パスワードを入力してください")
 	@Size(min = 8, max = 50, message = "８文字以上５０文字以内で入力してください")
+	private String password;
 
 	/** 確認用パスワード */
 	private String confirmPassword;
@@ -37,8 +38,6 @@ public class InsertAdministratorForm {
 	public void setConfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
 	}
-
-	private String password;
 
 	public String getName() {
 		return name;
