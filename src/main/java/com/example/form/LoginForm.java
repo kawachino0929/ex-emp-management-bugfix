@@ -22,9 +22,6 @@ public class LoginForm {
 	@NotBlank(message = "パスワードを入力してください")
 	@Size(min = 8, max = 50, message = "８文字以上５０文字以内で入力してください")
 	private String password;
-
-	/** 名前 */
-	private String name;
 	
 	public String getMailAddress() {
 		return mailAddress;
@@ -45,14 +42,6 @@ public class LoginForm {
 	@Override
 	public String toString() {
 		return "LoginForm [mailAddress=" + mailAddress + ", password=" + password + "]";
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 }
