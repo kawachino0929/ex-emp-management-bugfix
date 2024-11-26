@@ -123,6 +123,7 @@ public class AdministratorController {
 		if (result.hasErrors()) {
 			return toLogin();
 		}
+		session.setAttribute("administratorName",administrator.getName() );
 		return "redirect:/employee/showList";
 	}
 
