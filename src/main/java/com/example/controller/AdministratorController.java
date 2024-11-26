@@ -3,6 +3,10 @@ package com.example.controller;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -72,11 +76,26 @@ public class AdministratorController {
 	 * @return ログイン画面へリダイレクト
 	 */
 	@PostMapping("/insert")
-	public String insert(InsertAdministratorForm form) {
+	public String insert(@Validated InsertAdministratorForm form, BindingResult result, Model model) {
+		if (result.hasErrors()) {
+			return toInsert();
+		}
 		Administrator administrator = new Administrator();
 		// フォームからドメインにプロパティ値をコピー
 		BeanUtils.copyProperties(form, administrator);
-		administratorService.insert(administrator);
+		if (administratorService.findByMail(form.getMailAddress()) == null) {
+			administratorService.insert(administrator);
+		} else {
+			FieldError fieldError = new FieldError(result.getObjectName(), "mailAddress", form.getMailAddress(), false, null, null, "そのメールアドレスは既に使われています");
+			result.addError(fieldError);
+			return toInsert();
+		}
+
+		if (!form.getPassword().equals(form.getConfirmPassword())) {
+			FieldError fieldError = new FieldError(result.getObjectName(), "confirmPassword", form.getConfirmPassword(), false, null, null, "パスワードと確認用パスワードが一致しません");
+			result.addError(fieldError);
+			return toInsert();
+		}
 		return "redirect:/";
 	}
 
@@ -100,11 +119,9 @@ public class AdministratorController {
 	 * @return ログイン後の従業員一覧画面
 	 */
 	@PostMapping("/login")
-	public String login(LoginForm form, RedirectAttributes redirectAttributes) {
-		Administrator administrator = administratorService.login(form.getMailAddress(), form.getPassword());
-		if (administrator == null) {
-			redirectAttributes.addFlashAttribute("errorMessage", "メールアドレスまたはパスワードが不正です。");
-			return "redirect:/";
+	public String login(@Validated LoginForm form, BindingResult result, RedirectAttributes redirectAttributes) {
+		if (result.hasErrors()) {
+			return toLogin();
 		}
 		return "redirect:/employee/showList";
 	}

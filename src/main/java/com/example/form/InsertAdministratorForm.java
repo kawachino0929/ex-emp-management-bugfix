@@ -11,17 +11,33 @@ import jakarta.validation.constraints.Size;
  * 
  */
 public class InsertAdministratorForm {
+
 	/** 名前 */
 	@NotBlank(message = "名前を入力してください")
 	@Size(min = 1, max = 127, message = "１文字以上１２７文字以内で入力してください")
 	private String name;
 
 	/** メールアドレス */
-	@Email(message = "@を入れてください")
-	@Size(min = 1, max = 127, message = "１文字以上１２７文字以内で入力してください")
+	@NotBlank(message = "メールアドレスを入力してください。")
+	@Email(message = "メールアドレスの形式で入力してください")
+	@Size(min = 1, max = 254, message = "１文字以上２５４文字以内で入力してください")
 	private String mailAddress;
+
 	/** パスワード */
+	@NotBlank(message = "パスワードを入力してください")
+	@Size(min = 8, max = 50, message = "８文字以上５０文字以内で入力してください")
 	private String password;
+
+	/** 確認用パスワード */
+	private String confirmPassword;
+	
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
 
 	public String getName() {
 		return name;
