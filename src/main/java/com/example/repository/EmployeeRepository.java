@@ -58,6 +58,21 @@ public class EmployeeRepository {
 	}
 
 	/**
+	 * 検索した従業員一覧情報を入社日順で取得します.
+	 * 
+	 * @return
+	 */
+	public List<Employee> findByName(String name) {
+		String sql = "SELECT id,name,image,gender,hire_date,mail_address,zip_code,address,telephone,salary,characteristics,dependents_count FROM employees WHERE name LIKE :name ORDER BY hire_date DESC, name";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("name", "%" + name + "%");
+		List<Employee> developmentList = template.query(sql, param, EMPLOYEE_ROW_MAPPER);
+		if (developmentList.size() == 0) {
+			return null;
+		}
+		return developmentList;
+	}
+
+	/**
 	 * 主キーから従業員情報を取得します.
 	 * 
 	 * @param id 検索したい従業員ID

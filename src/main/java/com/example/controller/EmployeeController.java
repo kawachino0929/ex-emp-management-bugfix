@@ -2,6 +2,8 @@ package com.example.controller;
 
 import java.util.List;
 
+import javax.print.attribute.standard.MediaSize.NA;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,10 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.Employee;
+import com.example.form.NameForm;
 import com.example.form.UpdateEmployeeForm;
 import com.example.service.EmployeeService;
-
-import jakarta.servlet.http.HttpSession;
 
 /**
  * 従業員情報を操作するコントローラー.
@@ -41,6 +42,16 @@ public class EmployeeController {
 		return new UpdateEmployeeForm();
 	}
 
+	/**
+	 * 曖昧検索用のフォーム
+	 * 
+	 * @return フォーム
+	 */
+	@ModelAttribute
+	public NameForm setUpForm2() {
+		return new NameForm();
+	}
+
 	/////////////////////////////////////////////////////
 	// ユースケース：従業員一覧を表示する
 	/////////////////////////////////////////////////////
@@ -55,6 +66,25 @@ public class EmployeeController {
 		List<Employee> employeeList = employeeService.showList();
 		model.addAttribute("employeeList", employeeList);
 		return "employee/list";
+	}
+
+	@RequestMapping("/showNameList")
+	public String showNameList(NameForm form, Model model) {
+		if (form.getName() == null || form.getName().isEmpty()) {
+			model.addAttribute("text", "１件もありませんでした");
+			return showList(model);
+		} else {
+			List<Employee> employeeList = employeeService.findByName(form.getName());
+			if (employeeList == null) {
+				model.addAttribute("text", "１件もありませんでした");
+				model.addAttribute("formName", form.getName());
+				return showList(model);
+			}
+			model.addAttribute("employeeList", employeeList);
+			model.addAttribute("formName", form.getName());
+			return "employee/list";
+		}
+
 	}
 
 	/////////////////////////////////////////////////////
