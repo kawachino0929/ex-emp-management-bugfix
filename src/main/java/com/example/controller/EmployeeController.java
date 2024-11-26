@@ -2,6 +2,8 @@ package com.example.controller;
 
 import java.util.List;
 
+import javax.print.attribute.standard.MediaSize.NA;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,10 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.Employee;
+import com.example.form.NameForm;
 import com.example.form.UpdateEmployeeForm;
 import com.example.service.EmployeeService;
 
-import jakarta.servlet.http.HttpSession;
 
 /**
  * 従業員情報を操作するコントローラー.
@@ -39,6 +41,16 @@ public class EmployeeController {
 	@ModelAttribute
 	public UpdateEmployeeForm setUpForm() {
 		return new UpdateEmployeeForm();
+	}
+
+	/**
+	 * 曖昧検索用のフォーム
+	 * 
+	 * @return フォーム
+	 */
+	@ModelAttribute
+	public NameForm setUpForm2() {
+		return new NameForm();
 	}
 
 	/////////////////////////////////////////////////////
