@@ -13,18 +13,6 @@ import jakarta.validation.constraints.Size;
  */
 public class InsertAdministratorForm {
 
-	public interface Group1 {
-	}
-
-	public interface Group2 {
-	}
-
-	public interface Group3 {
-	}
-
-	@GroupSequence({Group1.class,Group2.class})
-	public interface  All {}
-
 	/** 名前 */
 	@NotBlank(message = "名前を入力してください")
 	@Size(min = 1, max = 127, message = "１文字以上１２７文字以内で入力してください")
@@ -40,6 +28,17 @@ public class InsertAdministratorForm {
 	@NotBlank(message = "パスワードを入力してください")
 	@Size(min = 8, max = 50, message = "８文字以上５０文字以内で入力してください")
 	private String password;
+
+	/** 確認用パスワード */
+	private String confirmPassword;
+	
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
 
 	public String getName() {
 		return name;
