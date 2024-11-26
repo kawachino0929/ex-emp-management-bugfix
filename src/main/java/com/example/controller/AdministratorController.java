@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import java.lang.reflect.Field;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -124,7 +126,15 @@ public class AdministratorController {
 		if (result.hasErrors()) {
 			return toLogin();
 		}
+		Administrator administrator = administratorService.findByMailAndPassword(form.getMailAddress(), form.getPassword());
+		if (administrator == null) {
+			FieldError fieldError = new FieldError(result.getObjectName(), "mailAddress", form.getMailAddress(), false, null, null, "メールアドレスまたはパスワードが間違っています");
+			result.addError(fieldError);
+			return toLogin();
+		} else {
+			session.setAttribute("administratorName",administrator.getName());
 		return "redirect:/employee/showList";
+		}
 	}
 
 	/////////////////////////////////////////////////////
